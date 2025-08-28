@@ -57,8 +57,7 @@ This project demonstrates an end-to-end pipeline using **MySQL**, **Kafka**, **C
 
 3. **Kafka Topic & Schema Registry Setup:**
 
-   * Create a Kafka topic: `product_updates`
-    # Here I've used 'Data1' as topic name
+   * Create a Kafka topic: `product_updates`  Here I've used 'Data1' as topic name
    * Register an Avro schema for the topic in the Schema Registry.
 
 ---
