@@ -14,23 +14,22 @@ logging.basicConfig(level=logging.INFO, format='%(threadName)s: %(message)s')
 # Kafka configuration - matches the producer cluster
 def get_kafka_config():
     return {
-        'bootstrap.servers': 'pkc-56d1g.eastus.azure.confluent.cloud:9092',
+        'bootstrap.servers': 'url',
         'sasl.mechanisms': 'PLAIN',
         'security.protocol': 'SASL_SSL',
-        'sasl.username': 'MBRQ2XMEBJ43D3XJ',
-        'sasl.password': 'cfltxZ+ArECbcY1SB3x7d0Hj3wwL7kdlWr6iR9l8RYOxaZ8be0uqFehnLzZ3El0A',
+        'sasl.username': 'key',
+        'sasl.password': 'passord',
         'group.id': 'product_updates_group',
         'auto.offset.reset': 'earliest'
     }
 
 # Schema Registry client
 schema_registry_client = SchemaRegistryClient({
-    'url': 'https://psrc-1yg3xnn.eastus.azure.confluent.cloud',
-    'basic.auth.user.info': '{}:{}'.format('MQPR4CPJG7E4OWEK',
-                                           'cflt0gfSmT0EV73LJdRSGdL7oh7/ezCyD+/5naW1kbBthSdnSbsRnbymdZUCUHlw')
+    'url': '',
+    'basic.auth.user.info': '{}:{}'.format('','')
 })
 
-subject_name = 'Data1-value'
+subject_name = 'product_updates-value'
 schema_str = schema_registry_client.get_latest_version(subject_name).schema.schema_str
 
 # Deserializers
@@ -69,7 +68,7 @@ def consume(worker_id):
         'key.deserializer': key_deserializer,
         'value.deserializer': avro_deserializer
     })
-    consumer.subscribe(['Data1'])
+    consumer.subscribe(['product_updates'])
 
     logging.info(f"Consumer {worker_id} started.")
 

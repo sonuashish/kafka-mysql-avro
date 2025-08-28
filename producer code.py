@@ -15,20 +15,20 @@ def delivery_report(err, msg):
 
 # kafka and Schema registry configuration
 kafka_config =  {
-    'bootstrap.servers' : 'pkc-56d1g.eastus.azure.confluent.cloud:9092',
+    'bootstrap.servers' : 'url',
     'sasl.mechanisms' : 'PLAIN',
     'security.protocol' : 'SASL_SSL',
-    'sasl.username' : 'MBRQ2XMEBJ43D3XJ',
-    'sasl.password' : 'cfltxZ+ArECbcY1SB3x7d0Hj3wwL7kdlWr6iR9l8RYOxaZ8be0uqFehnLzZ3El0A'
+    'sasl.username' : 'API key',
+    'sasl.password' : 'API Passowrd'
 }
 
 schema_registry_client = SchemaRegistryClient({
-    'url' : 'https://psrc-1yg3xnn.eastus.azure.confluent.cloud',
-    'basic.auth.user.info' : '{}:{}'.format('MQPR4CPJG7E4OWEK','cflt0gfSmT0EV73LJdRSGdL7oh7/ezCyD+/5naW1kbBthSdnSbsRnbymdZUCUHlw')
+    'url' : 'url',
+    'basic.auth.user.info' : '{}:{}'.format('','')
 })
 
 # Fetch the latest  AVRO Schema for the Value
-subject_name = 'Data1-value'
+subject_name = 'product_updates-value'
 schma_str = schema_registry_client.get_latest_version(subject_name).schema.schema_str
 
 #Producer Setup
@@ -43,16 +43,16 @@ producer = SerializingProducer({
     'sasl.password' : kafka_config['sasl.password'],
     'key.serializer' : key_serializer,
     'value.serializer' : avro_serializer,
-    'queue.buffering.max.messages': 200000,
-    'queue.buffering.max.kbytes': 2097152  # 2 GB
+    'queue.buffering.max.messages': 200000, # -------- Added these two lines as my Producer was crashing while producing 
+    'queue.buffering.max.kbytes': 2097152  # 2 GB  --- and consuming at the same time for millions of records.
 })
 
 # MySQL Connection Configuration
 mysql_config = {
     'host' : 'localhost',
-    'user' : 'root',
-    'password' : '123456789',
-    'database' : 'AZ'
+    'user' : '',
+    'password' : '',
+    'database' : 'Z'
 }
 
 # To Fetch new Records
@@ -70,7 +70,7 @@ def fetch_new_records(last_timestamp):
 # Initialize last read timestamp
 last_read_timestamp = datetime.min.strftime('%Y-%m-%d %H:%M:%S')
 
-topic = "Data1"
+topic = "product_updates"
 
 # Continuous Fetch and Produce Loop
 while True:
