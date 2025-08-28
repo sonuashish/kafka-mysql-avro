@@ -1,0 +1,14 @@
+create database AZ;
+use AZ;
+create table product(id int, name varchar(30), category varchar(50), constraint pk Primary Key (id));
+alter table product add price float;
+alter table product add last_update timestamp;
+select * from product;
+insert into product values (1,'Laptop','Electronis',45000.45,'2025-08-26 6:31:31');
+insert into product values (2,'Mobile','Electronis',15000.45,'2025-08-26 6:32:31');
+INSERT INTO product VALUES (6,'Dictionary','Books',41935.33,'2025-08-23 14:25:00');
+INSERT INTO product VALUES (7,'Watch','Fashion',11316.12,'2025-08-24 05:01:00');
+INSERT INTO product VALUES (3,'Shirt','Fashion',48963.19,'2025-08-27 04:00:00');
+INSERT INTO product VALUES (4,'Bread','Grocery',14075.9,'2025-08-26 06:59:00');
+INSERT INTO product VALUES (72,'Tablet','Electronics',47912.19,'2025-08-24 06:57:00');
+truncate table product;
